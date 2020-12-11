@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Notifications from '~/components/Notifications';
@@ -7,6 +8,8 @@ import { Container, Content, Profile } from './styles';
 import logo from '~/assets/logo-purple.svg';
 
 function Header() {
+  const profile = useSelector(state => state.user.profile);
+
   return (
     <Container>
       <Content>
@@ -19,12 +22,15 @@ function Header() {
           <Notifications />
           <Profile>
             <div>
-              <strong>Félix Vicente</strong>
+              <strong>{profile.name}</strong>
               <Link to="/profile">Meu perfil</Link>
             </div>
             <img
-              src="https://ui-avatars.com/api/?name=Félix+Vicente"
-              alt="Félix Vicente"
+              src={
+                profile.avatar.url ||
+                'https://ui-avatars.com/api/?name=Félix+Vicente'
+              }
+              alt={profile.name}
             />
           </Profile>
         </aside>
